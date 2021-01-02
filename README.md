@@ -1,2 +1,2 @@
 # wordpress-mysql-phpmyadmin-docker_compose
-A simple docker-compose file to deploy a Wordpress installation on Mysql with PhpMyAdmin.
+A simple docker-compose file to deploy a Wordpress installation on Mysql with PhpMyAdmin. Use it for local dev only.
