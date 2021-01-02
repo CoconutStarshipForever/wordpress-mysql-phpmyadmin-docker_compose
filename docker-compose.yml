@@ -1,0 +1,40 @@
+version: '3.3'
+
+services:
+ # Wordpress
+ wordpress:
+  image: wordpress:latest
+  environment:
+    WORDPRESS_DB_PASSWORD: wordpress_user_password
+    WORDPRESS_DB_USER: wordpress_user
+    WORDPRESS_DB_HOST: db
+    WORDPRESS_DB_NAME: wordpress_db
+  ports:
+   - '8081:80'
+  volumes:
+   - /home/thibault/wordpress-dev/volumes/wordpress/base:/var/www/html
+  restart: always
+  depends_on:
+   - db
+ # DATABASE
+ db:
+  image: mysql:5.7
+  restart: always
+  environment:
+    MYSQL_ROOT_PASSWORD: root_password
+    MYSQL_DATABASE: wordpress_db
+    MYSQL_USER: wordpress_user
+    MYSQL_PASSWORD: wordpress_user_password
+  volumes:
+   - /home/thibault/wordpress-dev/volumes/wordpress/db:/var/lib/mysql
+ # PHPMYADMIN
+ phpmyadmin:
+  image: phpmyadmin/phpmyadmin
+  depends_on:
+   - db
+  restart: always
+  ports:
+   - "8082:80"
+  environment:
+   PMA_HOST: db
+   MYSQL_ROOT_PASSWORD: root_password
